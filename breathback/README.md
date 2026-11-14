@@ -48,6 +48,54 @@ Parametry `--data` i `--output` pozwalają zmienić katalogi.
 
 Gotowy raport: `fNIRS/breathback_results/REPORT.md`.
 
+## Wariant ze wszystkimi kanałami, także spod włosów
+
+Osobny skrypt `mean_channels.py` używa wszystkich 10 kompletnych par
+źródło–detektor z montażu, w tym czterech odrzucanych wcześniej przez filtr
+obszaru czoła, aby uwzględnić także kanały spod włosów. Najpierw liczy cechy
+dla każdej pary, a potem uśrednia dostępne, poprawne pary w każdym kandydacie.
+Końce referencyjne zapisuje osobno od cech. Współrzędne w plikach opisują
+montaż nominalny i same nie potwierdzają kontaktu konkretnej optody z włosami.
+
+```bash
+python -m breathback.mean_channels --stage prepare
+python -m breathback.mean_channels --stage train
+```
+
+`prepare` tworzy dane w `breathback_results/all_channels_mean/`, w tym cechy
+kandydatów, osobną tabelę znaczników końca, próby demonstracyjne i 28 podziałów
+LOPO. `train` stroi regresję logistyczną i małą sieć MLP przez Optunę, po czym
+raportuje wyniki na osobach pominiętych podczas uczenia. Strojenie odbywa się w
+wewnętrznym GroupKFold po osobach; zewnętrzny LOPO pozostaje testem. Przedział
+poszukiwania czasu dobierany jest wyłącznie wewnątrz treningu. Liczbę prób
+Optuny można zmienić przez `--optuna-trials 12`. CNN pomijamy: 56 oznaczonych
+wstrzymań to za mało niezależnych przykładów, by uzasadnić dodatkowe parametry
+sieci splotowej. Optuna dobiera też lekką augmentację cech: kopia każdego
+przykładu treningowego dostaje mały, wspólny dla całej próby szum i skalowanie;
+etykiety pozostają bez zmian. Nie augmentujemy osób walidacyjnych ani testowych.
+Optuna może wybrać poziom 0, czyli brak augmentacji. `--stage all` wykonuje oba
+kroki. Ten wariant nie zmienia domyślnej, czołowej analizy uruchamianej przez
+`run.py`.
+
+Można eksperymentalnie stroić wewnętrzną walidację pod odsetek wskazań w ±10 s:
+`--optuna-objective within_10s`. Pozostałe opcje używają MAE. Niezależnie od celu
+strojenia raport LOPO pokazuje te same błędy na pominiętych osobach. Aby zachować
+wcześniejsze wagi i wyniki, taki eksperyment uruchamiaj w osobnym katalogu:
+
+```bash
+python -m breathback.mean_channels --stage all --output breathback_results/within10_optuna_experiment --optuna-trials 20 --optuna-objective within_10s
+```
+
+Metryki zapisują się w `lopo_metrics.csv`, przebieg i parametry Optuny w
+plikach `optuna_*.csv`, decyzję o augmentacji opisuje
+`augmentation_manifest.json`, a wytrenowane modele i wagi zapisują się jako
+`mean_all_channels_*_optuna.*`.
+
+Trening tworzy również `final_training_augmented.csv` z oryginalnymi i lekko
+perturbowanymi wierszami cech dla końcowego modelu; ten plik służy do treningu,
+nie do niezależnej oceny. Jeśli modele już istnieją, można go odtworzyć bez
+ponownego strojenia: `python -m breathback.mean_channels --stage export-augmented`.
+
 ## Co wykonuje program
 
 1. Tworzy tabelę zdarzeń: marker 2 → następny marker 1, przed kolejnym początkiem.
@@ -99,8 +147,10 @@ ich używać do deklarowania skuteczności na tych samych plikach. Do tego słu�
 wyłącznie `predictions_lopo.csv`. Dema trzecich prób również powstają w LOPO,
 bez treningu na pierwszych dwóch próbach pokazywanej osoby.
 
-Włosy, wiek i aktywność nie są wejściami detektora. Rozszerzenie bada ich
-związek z błędem na nowych osobach; nie ustanawia biomarkerów sprawności.
+Kolor, typ i tekstura włosów, wiek oraz aktywność nie są cechami detektora.
+Osobny wariant `mean_channels.py` uwzględnia sygnały z kanałów położonych pod
+włosami. Rozszerzenie metadanych bada ich związek z błędem na nowych osobach;
+nie ustanawia biomarkerów sprawności.
 Rodzina pięciu eksploracyjnych testów ma korektę FDR. Nie łączymy identyfikatorów
 uczestników DOT i supine. Program nie modyfikuje źródłowych SNIRF i CSV.
 

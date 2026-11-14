@@ -117,7 +117,7 @@ def filt(x, fs, cutoffs, kind):
     return signal.sosfiltfilt(signal.butter(3, cutoffs, btype=kind, fs=fs, output="sos"), x, axis=0)
 
 
-def prepare(path):
+def prepare(path, channel_region="forehead"):
     with h5py.File(path, "r") as f:
         n = f["nirs"]
         d = n["data1"]
@@ -153,7 +153,27 @@ def prepare(path):
             dist = float(np.linalg.norm(source[s-1]-detector[det-1]))
             pairs.append(dict(source=s, detector=det, a=indices[1], b=indices[2], distance_mm=dist,
                               kind="short" if dist < SETTINGS["short_distance_mm"] else "long"))
-        pairs, montage_audit = select_forehead_pairs(pairs, source_tags, detector_tags)
+        if channel_region == "forehead":
+            pairs, montage_audit = select_forehead_pairs(pairs, source_tags, detector_tags)
+        elif channel_region == "all":
+            # Keep every complete source-detector pair in the recorded montage,
+            # including pairs omitted by the forehead-only selection. The
+            # per-pair audit makes this broader selection explicit.
+            montage_audit = []
+            for pair in pairs:
+                source_tag = source_tags[pair["source"]-1]
+                detector_tag = detector_tags[pair["detector"]-1]
+                montage_audit.append(dict(
+                    source=pair["source"], detector=pair["detector"],
+                    original_a=pair["a"], original_b=pair["b"],
+                    kind=pair["kind"], distance_mm=pair["distance_mm"],
+                    source_landmark=source_tag["nearest_landmark"],
+                    source_landmark_distance_mm=source_tag["distance_to_landmark_mm"],
+                    detector_landmark=detector_tag["nearest_landmark"],
+                    detector_landmark_distance_mm=detector_tag["distance_to_landmark_mm"],
+                    selected=True, reason="all_montage_pairs_including_hair"))
+        else:
+            raise ValueError("channel_region must be 'forehead' or 'all'")
         # Physically discard other signal columns before interpolation, OD, filtering,
         # feature extraction, quality estimation and plotting.
         columns = sorted({p[k] for p in pairs for k in ["a", "b"]})
