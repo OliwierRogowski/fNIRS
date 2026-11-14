@@ -1,12 +1,12 @@
 # fNIRS · UI
 
-Panel do analizy końca wstrzymania oddechu na podstawie gotowych nagrań fNIRS.
+Panel Streamlit czyta tabelę zdarzeń i przygotowane okna z `fnirs_high_freq_supine/derived/`, a artefakt wag z `breathback/weights/wagi-dziala.json`. Wyświetla też metryki zapisane w JSON oraz punkt odniesienia z przygotowanej oceny.
 
-Pierwszy zbiór docelowy to `fnirs_high_freq_supine/data/BH`: 28 nagrań i 56 oznaczonych wstrzymań (próby 1–2). Próba 3 służy do demonstracji predykcji bez znanego końca. Interfejs pokazuje plan analizy i miejsca na dane; nie zawiera jeszcze podłączonych sygnałów ani wyliczonych wyników.
+Sam plik wag nie zawiera danych konkretnej próby. Wymaga 14 cech wejściowych; dostępny plik okien ma 5 innych cech. Ponadto opis wag wskazuje wszystkie kanały montażu, także spoza czoła. UI pokazuje te metryki informacyjnie, ale nie przedstawia ich jako wyniku modelu czołowego i nie generuje na ich podstawie predykcji.
 
-Walidacja pierwszej wersji ma odbywać się schematem leave-one-subject-out. Metadane włosów i aktywności są odłożone do analizy dodatkowej.
+Próby 1–2 są oceniane, a próba 3 służy do demonstracji bez etykiety końca. Metadane włosów i aktywności pozostają analizą dodatkową.
 
-## Uruchomienie w PowerShell
+## Instalacja i uruchomienie w PowerShell
 
 Z katalogu głównego repozytorium `fNIRS`:
 
@@ -15,3 +15,5 @@ $python312 = "$env:LOCALAPPDATA\Programs\Python\Python312\python.exe"
 & $python312 -m pip install -r .\ui\requirements.txt
 & $python312 -m streamlit run .\ui\app.py
 ```
+
+Interfejs działa bez plików SNIRF: pokazuje przygotowaną tabelę zdarzeń, podgląd cech, wagi i zapisane metryki. Do predykcji z wagi potrzebny jest zgodny zestaw 14 cech oraz zgodność zakresu kanałów.
