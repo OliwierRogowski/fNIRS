@@ -1,6 +1,6 @@
 # fNIRS BreathBack
 
-BreathBack to prototyp offline szacujący **koniec wstrzymania oddechu przy znanym początku** na podstawie sygnałów fNIRS. Marker `2` wyznacza początek, a następny marker `1` jest referencją końca w dwóch oznaczonych próbach. Program nie wykrywa początku samodzielnie; marker końca nie jest niezależnym pomiarem przepływu powietrza ani pierwszego wdechu. Projekt nie jest narzędziem klinicznym ani systemem czasu rzeczywistego.
+BreathBack to prototyp offline fNIRS wspierający **badania nad bezdechem sennym z użyciem kontrolowanych prób wstrzymania oddechu**. W dostępnej wersji szacuje **koniec próby przy znanym początku** na podstawie sygnałów fNIRS. Marker `2` wyznacza początek, a następny marker `1` jest referencją końca w dwóch oznaczonych próbach. Program nie wykrywa początku samodzielnie; marker końca nie jest niezależnym pomiarem przepływu powietrza ani pierwszego wdechu. Projekt nie rozpoznaje epizodów bezdechu podczas snu i nie jest narzędziem klinicznym ani systemem czasu rzeczywistego.
 
 ## Struktura projektu
 
@@ -39,7 +39,7 @@ Uczenie wariantu ze wszystkimi kompletnymi parami kanałów, w tym MLP:
 python -m breathback.mean_channels --stage all --optuna-trials 12
 ```
 
-Druga komenda przygotowuje dane i wykonuje zewnętrzne podziały leave-one-participant-out. Wyniki zapisuje domyślnie do `breathback_results/all_channels_mean/`. Predykcje dla prób z oznaczonym końcem, demonstracje prób bez markera końca, metryki, parametry strojenia i finalny model MLP są w osobnych plikach. Pełne objaśnienie wejść sieci oraz wyniki ponownego treningu są w [raporcie audytu MLP](docs/MLP_AUDYT.odt), a skrócony zapis kontrolny w [pliku z dowodami treningu](docs/mlp_retrain_evidence.json).
+Druga komenda przygotowuje dane i wykonuje zewnętrzne podziały leave-one-participant-out. Wyniki zapisuje domyślnie do `breathback_results/all_channels_mean/`. Predykcje dla prób z oznaczonym końcem, demonstracje prób bez markera końca, metryki, parametry strojenia i finalny model MLP są w osobnych plikach. Pełne objaśnienie wejść sieci oraz wyniki ponownego treningu są w [raporcie audytu MLP](docs/MLP_AUDYT.odt), pierwotny trening opisuje [manifest dowodowy](docs/mlp_retrain_evidence.json), a porównanie nowego treningu z obecnym modelem zawiera [manifest porównania filtrów](docs/comparison_evidence.json).
 
 ## Interfejs Streamlit
 
@@ -57,3 +57,5 @@ Aplikacja korzysta z lokalnych plików w `breathback_results/all_channels_mean/`
 `docs/RESULTS.md` opisuje dotychczasową ocenę wariantu czołowego. Raport MLP dotyczy innego wariantu: wszystkich 10 kompletnych par, 56 oznaczonych prób u 28 osób i zagnieżdżonej walidacji grupowej. Wyników tych wariantów nie należy ze sobą utożsamiać. Szczegóły filtracji, etykiet, cech, zapisanych plików, metryk i ograniczeń są w [raporcie MLP](docs/MLP_AUDYT.odt).
 
 Modele końcowe są dopasowywane na całym zbiorze oznaczonym i służą do demonstracji lub predykcji nowych nagrań. Do oceny jakości używaj wyłącznie predykcji z pominiętymi uczestnikami w pliku `lopo_predictions.csv`. Wartość `score` nie jest skalibrowanym prawdopodobieństwem poprawności.
+
+Krótka prezentacja produktu i wyników: [BreathBack — prezentacja PDF](docs/BreathBack_Prezentacja.pdf).

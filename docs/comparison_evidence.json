@@ -1,0 +1,231 @@
+{
+  "purpose": "Fresh from-scratch training and comparison against the existing all-channel MLP.",
+  "run_date_local": "2026-11-15T00:28:37+01:00",
+  "command": "python -m breathback.mean_channels --stage all --output breathback_results/mlp_filtered_20261115 --optuna-trials 12",
+  "filters": {
+    "butterworth_order": 3,
+    "zero_phase_implementation": "scipy.signal.sosfiltfilt",
+    "slow_signal_lowpass_hz": 0.4,
+    "pulse_signal_bandpass_hz": [
+      0.7,
+      2.5
+    ],
+    "pulse_hilbert_envelope_lowpass_hz": 0.4,
+    "downsample_factor": 7,
+    "sci_bandpass_hz_computed_but_not_used_as_mlp_feature_or_pair_threshold": [
+      0.7,
+      1.5
+    ],
+    "max_invalid_fraction_per_pair_window": 0.05
+  },
+  "source_data": {
+    "directory": "fnirs_high_freq_supine/data/BH",
+    "snirf_file_count": 28,
+    "sha256_of_sorted_file_sha256_values": "b2cbc7bffccfb56df959579dc63bbd213f56caa3ae0678a52b8bf9999eaaff82"
+  },
+  "source_code_sha256": {
+    "breathback/mean_channels.py": "f38e93711224d8a7ddedb97d8ddc359537b924040b97b26e5d1ba95183d82faf",
+    "breathback/signals.py": "424453100728888a34426b14d15c6bde3319f235652926b1cf30e334b6b649ba"
+  },
+  "runtime": {
+    "python": "3.14.8",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit_learn": "1.9.1",
+    "optuna": "4.7.0",
+    "h5py": "3.16.0"
+  },
+  "comparison": {
+    "lopo_predictions_byte_identical": true,
+    "lopo_metrics_byte_identical": true,
+    "candidate_features_byte_identical": true,
+    "event_targets_byte_identical": true,
+    "final_training_augmented_byte_identical": true,
+    "final_mlp_core_parameters_identical": true,
+    "final_mlp_joblib_byte_identical": false,
+    "ui_export_core_parameters_match_fresh_model": true,
+    "interpretation": "Both current and fresh models use the same filtered preprocessing pipeline; this retrain checks reproducibility and does not isolate the effect of filtering versus an unfiltered pipeline.",
+    "final_mlp_coefficient_and_intercept_arrays_identical": true,
+    "final_mlp_scaler_center_and_scale_identical": true,
+    "joblib_binary_difference_explanation": "The fresh bundle adds objective_value and optimization_objective metadata; fitted coefficients, intercepts, loss history, scaler, and core exported MLP parameters match."
+  },
+  "metrics": {
+    "duration_baseline": {
+      "current": {
+        "n_trials": "56",
+        "n_predictions": "56",
+        "coverage_pct": "100",
+        "median_abs_error_s": "4.333487825",
+        "mean_abs_error_s": "8.210307046",
+        "within_5s_pct": "57.14285714",
+        "within_10s_pct": "75",
+        "n_no_prediction": "0"
+      },
+      "fresh": {
+        "n_trials": "56",
+        "n_predictions": "56",
+        "coverage_pct": "100",
+        "median_abs_error_s": "4.333487825",
+        "mean_abs_error_s": "8.210307046",
+        "within_5s_pct": "57.14285714",
+        "within_10s_pct": "75",
+        "n_no_prediction": "0"
+      },
+      "delta_fresh_minus_current": {
+        "coverage_pct": 0.0,
+        "median_abs_error_s": 0.0,
+        "mean_abs_error_s": 0.0,
+        "within_5s_pct": 0.0,
+        "within_10s_pct": 0.0
+      }
+    },
+    "logistic_optuna": {
+      "current": {
+        "n_trials": "56",
+        "n_predictions": "56",
+        "coverage_pct": "100",
+        "median_abs_error_s": "2.3387063",
+        "mean_abs_error_s": "11.26858804",
+        "within_5s_pct": "60.71428571",
+        "within_10s_pct": "69.64285714",
+        "n_no_prediction": "0"
+      },
+      "fresh": {
+        "n_trials": "56",
+        "n_predictions": "56",
+        "coverage_pct": "100",
+        "median_abs_error_s": "2.3387063",
+        "mean_abs_error_s": "11.26858804",
+        "within_5s_pct": "60.71428571",
+        "within_10s_pct": "69.64285714",
+        "n_no_prediction": "0"
+      },
+      "delta_fresh_minus_current": {
+        "coverage_pct": 0.0,
+        "median_abs_error_s": 0.0,
+        "mean_abs_error_s": 0.0,
+        "within_5s_pct": 0.0,
+        "within_10s_pct": 0.0
+      }
+    },
+    "mlp_optuna": {
+      "current": {
+        "n_trials": "56",
+        "n_predictions": "56",
+        "coverage_pct": "100",
+        "median_abs_error_s": "1.83767295",
+        "mean_abs_error_s": "8.04525735",
+        "within_5s_pct": "69.64285714",
+        "within_10s_pct": "76.78571429",
+        "n_no_prediction": "0"
+      },
+      "fresh": {
+        "n_trials": "56",
+        "n_predictions": "56",
+        "coverage_pct": "100",
+        "median_abs_error_s": "1.83767295",
+        "mean_abs_error_s": "8.04525735",
+        "within_5s_pct": "69.64285714",
+        "within_10s_pct": "76.78571429",
+        "n_no_prediction": "0"
+      },
+      "delta_fresh_minus_current": {
+        "coverage_pct": 0.0,
+        "median_abs_error_s": 0.0,
+        "mean_abs_error_s": 0.0,
+        "within_5s_pct": 0.0,
+        "within_10s_pct": 0.0
+      }
+    }
+  },
+  "artifacts": {
+    "all_channel_montage.csv": {
+      "sha256": "1d240b2dcd318041ec2a71436ebaee342ec1ecb33484f1411e82aa852812e98a",
+      "bytes": 37083,
+      "data_rows": 280
+    },
+    "augmentation_manifest.json": {
+      "sha256": "fc05b7de0c40a4456781e7f46126b13cd9aa7886ecb3725d1be90b45329dab11",
+      "bytes": 1011
+    },
+    "candidate_features.csv": {
+      "sha256": "7bc3e74a89fd7517ad3937b492eae0be892b3c1ae3dfbef91ccad7af85e70aed",
+      "bytes": 1777410,
+      "data_rows": 6929
+    },
+    "dataset_manifest.json": {
+      "sha256": "a96e2fbd2bbb13a98fb368bb0a32bb33f313eb62c689ef0a75b13bd91feac939",
+      "bytes": 1790
+    },
+    "event_targets.csv": {
+      "sha256": "069dd1c4373479f7222c03461ff8abd427c7986ed8341a0710abcb8b0cfedf90",
+      "bytes": 8063,
+      "data_rows": 84
+    },
+    "final_training_augmented.csv": {
+      "sha256": "a2eb79a52ff9b7cadcc6825d77f85353cc8083c1e08ce26da5123e7b0e42cce8",
+      "bytes": 3491603,
+      "data_rows": 14716
+    },
+    "lopo_folds.csv": {
+      "sha256": "e92c5c22aea4c08d6639ad342b49477051a3df224c1cc8b285ab4bea7abaae60",
+      "bytes": 2518,
+      "data_rows": 28
+    },
+    "lopo_metrics.csv": {
+      "sha256": "4e56b27c0aa64fd7c8a9d21f3a24570a04cf88fb3846f3f20629effe0a96d7d2",
+      "bytes": 397,
+      "data_rows": 3
+    },
+    "lopo_predictions.csv": {
+      "sha256": "9e970bd96a86b8dff8cc813df895b05c9ffcbb108a89a747f34a94fe0482a79f",
+      "bytes": 36712,
+      "data_rows": 168
+    },
+    "mean_all_channels_logistic_optuna.joblib": {
+      "sha256": "3e272a0317e7bc95626a6432b204090a2aff89cbb6e763eaf6dc59aff800c0be",
+      "bytes": 1544
+    },
+    "mean_all_channels_logistic_optuna_weights.json": {
+      "sha256": "153e6d800f91fdf311915c384d041634069e2f98b31acf2195bf5c078a41464f",
+      "bytes": 1876
+    },
+    "mean_all_channels_mlp_optuna.joblib": {
+      "sha256": "e16f331bbcf5f58259f875d60047ef7c314f42b124090ad94cbbb1b9ea596507",
+      "bytes": 8425
+    },
+    "mean_all_channels_mlp_optuna_weights.json": {
+      "sha256": "1e86ec2a88cbfe12c08a6c3a763ac42aa5c2e96ad9ce2f1687aa931ccb8ff122",
+      "bytes": 3742
+    },
+    "optuna_best_params_lopo.csv": {
+      "sha256": "822827888ff062ae324206544eaaa89a60bbd1bad85b1ccdfcdcabe27a40efed",
+      "bytes": 10266,
+      "data_rows": 56
+    },
+    "optuna_final_models.csv": {
+      "sha256": "781c175fcbc8e60806558a908bad0bb135afddec2f0358d72207c00e9ba5d6c5",
+      "bytes": 485,
+      "data_rows": 2
+    },
+    "optuna_trials_lopo.csv": {
+      "sha256": "5105f7a78a90746a40b7f69d843932677373e1a53d8daf5f316971af4d9a789d",
+      "bytes": 119983,
+      "data_rows": 696
+    },
+    "presentation_features.csv": {
+      "sha256": "3e95250ca4e1dbec06979c450b8b6c24215787f9a1c3fc47f3150b9f81aff27b",
+      "bytes": 167063,
+      "data_rows": 652
+    },
+    "presentation_predictions.csv": {
+      "sha256": "9667418895f2f8b6f41aaed01dd6a37b3fca6fe21a48f147eaa6bc62b9bbd8b9",
+      "bytes": 16593,
+      "data_rows": 84
+    },
+    "training_objective.json": {
+      "sha256": "bef4f1ab60281b344f1ee3384459955c545c8a08c9179344fd81a71a126d8dd0",
+      "bytes": 253
+    }
+  }
+}
