@@ -1,6 +1,10 @@
 # fNIRS · UI
 
-Panel badania fNIRS z widokiem uczestników i polem wyszukiwania. Interfejs nie zawiera jeszcze danych — można je podłączyć, gdy będą dostępne.
+Panel do analizy końca wstrzymania oddechu na podstawie gotowych nagrań fNIRS.
+
+Pierwszy zbiór docelowy to `fnirs_high_freq_supine/data/BH`: 28 nagrań i 56 oznaczonych wstrzymań (próby 1–2). Próba 3 służy do demonstracji predykcji bez znanego końca. Interfejs pokazuje plan analizy i miejsca na dane; nie zawiera jeszcze podłączonych sygnałów ani wyliczonych wyników.
+
+Walidacja pierwszej wersji ma odbywać się schematem leave-one-subject-out. Metadane włosów i aktywności są odłożone do analizy dodatkowej.
 
 ## Uruchomienie w PowerShell
 
