@@ -1,0 +1,194 @@
+{
+  "command": "python -m breathback.mean_channels --stage all --output breathback_results/mlp_retrain_20261114 --optuna-trials 12",
+  "dataset": {
+    "candidate_feature_names": [
+      "slope_before",
+      "slope_after",
+      "slope_change",
+      "abs_slope_change",
+      "level_change",
+      "abs_level_change",
+      "local_variability",
+      "log_variance_change",
+      "abs_log_variance_change",
+      "log_pulse_change",
+      "abs_log_pulse_change",
+      "direction_agreement",
+      "channel_coherence",
+      "relative_level"
+    ],
+    "candidate_feature_rows": 6929,
+    "final_mlp_augmented_candidate_rows": 3797,
+    "final_mlp_label_counts_per_view": {
+      "augmented": {
+        "0": 3476,
+        "1": 321
+      },
+      "original": {
+        "0": 3476,
+        "1": 321
+      }
+    },
+    "final_mlp_original_candidate_rows": 3797,
+    "final_mlp_trainable_events": 55,
+    "labelled_holds": 56,
+    "outer_lopo_folds": 28,
+    "recordings": 28,
+    "unmarked_holds": 28
+  },
+  "output_directory": "breathback_results/mlp_retrain_20261114",
+  "outputs": {
+    "augmentation_manifest.json": {
+      "sha256": "fc05b7de0c40a4456781e7f46126b13cd9aa7886ecb3725d1be90b45329dab11"
+    },
+    "candidate_features.csv": {
+      "rows": 6929,
+      "sha256": "7bc3e74a89fd7517ad3937b492eae0be892b3c1ae3dfbef91ccad7af85e70aed"
+    },
+    "event_targets.csv": {
+      "rows": 84,
+      "sha256": "069dd1c4373479f7222c03461ff8abd427c7986ed8341a0710abcb8b0cfedf90"
+    },
+    "final_training_augmented.csv": {
+      "rows": 14716,
+      "sha256": "a2eb79a52ff9b7cadcc6825d77f85353cc8083c1e08ce26da5123e7b0e42cce8"
+    },
+    "lopo_folds.csv": {
+      "rows": 28,
+      "sha256": "e92c5c22aea4c08d6639ad342b49477051a3df224c1cc8b285ab4bea7abaae60"
+    },
+    "lopo_metrics.csv": {
+      "rows": 3,
+      "sha256": "4e56b27c0aa64fd7c8a9d21f3a24570a04cf88fb3846f3f20629effe0a96d7d2"
+    },
+    "lopo_predictions.csv": {
+      "rows": 168,
+      "sha256": "9e970bd96a86b8dff8cc813df895b05c9ffcbb108a89a747f34a94fe0482a79f"
+    },
+    "mean_all_channels_mlp_optuna.joblib": {
+      "sha256": "e16f331bbcf5f58259f875d60047ef7c314f42b124090ad94cbbb1b9ea596507"
+    },
+    "mean_all_channels_mlp_optuna_weights.json": {
+      "sha256": "1e86ec2a88cbfe12c08a6c3a763ac42aa5c2e96ad9ce2f1687aa931ccb8ff122"
+    },
+    "optuna_best_params_lopo.csv": {
+      "rows": 56,
+      "sha256": "822827888ff062ae324206544eaaa89a60bbd1bad85b1ccdfcdcabe27a40efed"
+    },
+    "optuna_final_models.csv": {
+      "rows": 2,
+      "sha256": "781c175fcbc8e60806558a908bad0bb135afddec2f0358d72207c00e9ba5d6c5"
+    },
+    "optuna_trials_lopo.csv": {
+      "rows": 696,
+      "sha256": "5105f7a78a90746a40b7f69d843932677373e1a53d8daf5f316971af4d9a789d"
+    },
+    "presentation_features.csv": {
+      "rows": 652,
+      "sha256": "3e95250ca4e1dbec06979c450b8b6c24215787f9a1c3fc47f3150b9f81aff27b"
+    },
+    "presentation_predictions.csv": {
+      "rows": 84,
+      "sha256": "9667418895f2f8b6f41aaed01dd6a37b3fca6fe21a48f147eaa6bc62b9bbd8b9"
+    }
+  },
+  "purpose": "Fresh full preparation and nested leave-one-participant-out training; original result directories were not overwritten.",
+  "reproducibility_checks": {
+    "fresh_metrics_match_previous_all_channels_run": true,
+    "ui_wagi_dziala_json_model_arrays_match_fresh_final_mlp": true,
+    "ui_weight_fields_checked": [
+      "feature_names",
+      "best_params",
+      "search_bounds_elapsed_s",
+      "scaler_center",
+      "scaler_scale",
+      "layer_coefficients",
+      "layer_intercepts"
+    ]
+  },
+  "results": [
+    {
+      "coverage_pct": "100",
+      "mean_abs_error_s": "8.210307046",
+      "median_abs_error_s": "4.333487825",
+      "median_signed_error_s": "0.0614345",
+      "method": "duration_baseline",
+      "n_no_prediction": "0",
+      "n_predictions": "56",
+      "n_trials": "56",
+      "within_10s_pct": "75",
+      "within_5s_pct": "57.14285714"
+    },
+    {
+      "coverage_pct": "100",
+      "mean_abs_error_s": "11.26858804",
+      "median_abs_error_s": "2.3387063",
+      "median_signed_error_s": "-0.6006889",
+      "method": "logistic_optuna",
+      "n_no_prediction": "0",
+      "n_predictions": "56",
+      "n_trials": "56",
+      "within_10s_pct": "69.64285714",
+      "within_5s_pct": "60.71428571"
+    },
+    {
+      "coverage_pct": "100",
+      "mean_abs_error_s": "8.04525735",
+      "median_abs_error_s": "1.83767295",
+      "median_signed_error_s": "-0.2489053",
+      "method": "mlp_optuna",
+      "n_no_prediction": "0",
+      "n_predictions": "56",
+      "n_trials": "56",
+      "within_10s_pct": "76.78571429",
+      "within_5s_pct": "69.64285714"
+    }
+  ],
+  "run_date_local": "2026-11-14T23:46:43+01:00",
+  "runtime": {
+    "h5py": "3.16.0",
+    "numpy": "2.5.4",
+    "optuna": "4.7.0",
+    "python": "3.14.8",
+    "scikit_learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "source_code_sha256": {
+    "breathback/mean_channels.py": "f38e93711224d8a7ddedb97d8ddc359537b924040b97b26e5d1ba95183d82faf",
+    "breathback/signals.py": "424453100728888a34426b14d15c6bde3319f235652926b1cf30e334b6b649ba"
+  },
+  "source_data": {
+    "directory": "fnirs_high_freq_supine/data/BH",
+    "sha256_of_sorted_file_sha256_values": "68cb479884fba6d09b42fde19cdd1f7b247b580400c819aa0dc068b502d2ad69",
+    "snirf_file_count": 28
+  },
+  "training": {
+    "augmentation_sigma": 0.1,
+    "final_mlp_best_params": {
+      "alpha": 0.038113495563525446,
+      "augmentation_sigma": 0.1,
+      "hidden_units": 4,
+      "learning_rate": 0.000532229640260151,
+      "prior_margin_s": 15,
+      "smooth_window": 1
+    },
+    "final_mlp_layer_shapes": [
+      [
+        14,
+        4
+      ],
+      [
+        4,
+        1
+      ]
+    ],
+    "final_mlp_search_bounds_elapsed_s": [
+      4.0,
+      82.0783542
+    ],
+    "inner_validation": "3-fold GroupKFold by participant",
+    "objective": "mean absolute endpoint error in seconds",
+    "optuna_trials_per_model_per_fit": 12,
+    "outer_validation": "leave one participant out"
+  }
+}

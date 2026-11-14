@@ -33,12 +33,12 @@ poprzedniego pełnego montażu nie należy przedstawiać jako wyników tylko z c
 
 ## Uruchomienie
 
-Polecenia wykonuj z katalogu `hackhaton`:
+Polecenia wykonuj z katalogu głównego repozytorium:
 
 ```powershell
-python -m pip install -r fNIRS/breathback/requirements.txt
-python -m fNIRS.breathback.run --stage all
-python -m unittest fNIRS.breathback.test_pipeline -v
+python -m pip install -r breathback/requirements.txt
+python -m breathback.run --stage all
+python -m unittest breathback.test_pipeline -v
 ```
 
 Można osobno uruchomić `--stage prepare`, `--stage evaluate` lub `--stage report`.
@@ -46,7 +46,7 @@ Etap evaluate wykorzystuje lokalny `features.joblib`, etap report gotowe wyniki.
 Po zmianach sposobu przygotowania cech trzeba ponownie wykonać prepare i evaluate.
 Parametry `--data` i `--output` pozwalają zmienić katalogi.
 
-Gotowy raport: `fNIRS/breathback_results/REPORT.md`.
+Gotowy raport: `breathback_results/REPORT.md`.
 
 ## Wariant ze wszystkimi kanałami, także spod włosów
 
@@ -137,7 +137,7 @@ wszystkie oceniane próby, również bez wskazania.
 ## Nowe nagranie
 
 ```powershell
-python -m fNIRS.breathback.predict "sciezka/do/Breath holding_V2_61_XX_BH_pomiar.snirf"
+python -m breathback.predict "sciezka/do/Breath holding_V2_61_XX_BH_pomiar.snirf"
 ```
 
 Domyślnie bierze początki z markerów 2. Można podać `--onset 70.0` (wielokrotnie),
