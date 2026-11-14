@@ -1,0 +1,11 @@
+Źródło,Detektor,Kanały,Odległość [mm],Typ,Mediana SCI (opisowo),"Nagrania z SCI >= 0,75",Liczba nagrań,Obszar,Uwzględniony
+1,1,S1-D1 przy 760 i 850 nm,29.33,long,0.9931,26,28,przedczołowy (czoło),tak
+2,1,S2-D1 przy 760 i 850 nm,22.62,long,0.9867,27,28,przedczołowy (czoło),tak
+3,2,S3-D2 przy 760 i 850 nm,23.43,long,0.9876,28,28,przedczołowy (czoło),tak
+4,2,S4-D2 przy 760 i 850 nm,29.34,long,0.9899,25,28,przedczołowy (czoło),tak
+5,3,S5-D3 przy 760 i 850 nm,30.25,long,0.9973,28,28,przedczołowy (czoło),tak
+5,4,S5-D4 przy 760 i 850 nm,30.43,long,0.9847,28,28,przedczołowy (czoło),tak
+6,4,S6-D4 przy 760 i 850 nm,30.33,long,0.9910,28,28,przedczołowy (czoło),tak
+6,5,S6-D5 przy 760 i 850 nm,29.90,long,0.9945,28,28,przedczołowy (czoło),tak
+7,4,S7-D4 przy 760 i 850 nm,10.00,short,0.9973,25,28,przedczołowy (czoło),tak
+8,5,S8-D5 przy 760 i 850 nm,10.00,short,0.9970,25,28,przedczołowy (czoło),tak
